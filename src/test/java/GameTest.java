@@ -11,7 +11,19 @@ public class GameTest {
     Player player4 = new Player(4, "Svetlana", 60);
 
     @Test
-    public void WhenSecondPlayerStronger() {
+    public void WhenSecondPlayerStrongerFirstPlayer() {
+
+        game.register(player2);
+        game.register(player3);
+
+        int expected = 1;
+        int actual = game.round("Petr", "Anastasiya");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void WhenSecondPlayerStrongerSecondPlayer() {
 
         game.register(player1);
         game.register(player2);
@@ -23,19 +35,7 @@ public class GameTest {
     }
 
     @Test
-    public void WhenFirstPlayerStronger() {
-
-        game.register(player1);
-        game.register(player3);
-
-        int expected = 1;
-        int actual = game.round("Nikolay", "Anastasiya");
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void WhenStrongEquals() {
+    public void WhenSecondPlayerStrongerEquals() {
 
         game.register(player2);
         game.register(player4);
@@ -53,7 +53,7 @@ public class GameTest {
         game.register(player4);
 
         assertThrows(NotRegisteredException.class,
-                () -> game.round("Nikolay", "Svetlana"));
+                () -> game.round(null, "Svetlana"));
     }
 
     @Test
@@ -63,6 +63,6 @@ public class GameTest {
         game.register(player4);
 
         assertThrows(NotRegisteredException.class,
-                () -> game.round("Petr", "Anastasiya"));
+                () -> game.round("Petr", null));
     }
 }
